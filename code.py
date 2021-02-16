@@ -9,9 +9,6 @@ import adafruit_dotstar
 from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keycode import Keycode
 
-from adafruit_hid.consumer_control import ConsumerControl
-from adafruit_hid.consumer_control_code import ConsumerControlCode
-
 from digitalio import DigitalInOut, Direction, Pull
 
 import random
@@ -43,18 +40,26 @@ device = I2CDevice(i2c, 0x20)
 # Set up the keyboard
 kbd = Keyboard(usb_hid.devices)
 
-# Function to map 0-255 to position on colour wheel
-def colourwheel(pos):
-    if pos < 0 or pos > 255:
-        return (0, 0, 0)
-    if pos < 85:
-        return (255 - pos * 3, pos * 3, 0)
-    if pos < 170:
-        pos -= 85
-        return (0, 255 - pos * 3, pos * 3)
-    pos -= 170
-    return (pos * 3, 0, 255 - pos * 3)
+# Set up Keycodes
+keyMod = Keycode.LEFT_CONTROL
+key0 = Keycode.F1
+key1 = Keycode.F2
+key2 = Keycode.F3
+key3 = Keycode.F4
+key4 = Keycode.F5
+key5 = Keycode.F6
+key6 = Keycode.F7
+key7 = Keycode.F8
+key8 = Keycode.F9
+key9 = Keycode.F10
+key10 = Keycode.F11
+key11 = Keycode.F12
+key12 = Keycode.F13
+key13 = Keycode.F14
+key14 = Keycode.F15
+key15 = Keycode.F16
 
+# Return random Color
 def randomColor():
     return(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
@@ -76,6 +81,11 @@ def read_button_states(x, y):
                 pressed[i] = 0
     return pressed
 
+def sendKey(mod, key):
+    kbd.press(mod, key)
+    time.sleep(0.1)
+    kbd.release(mod, key)
+
 # List to store the button states
 held = [0] * 16
 
@@ -89,121 +99,109 @@ while True:
 
     if pressed[0]:
         if not held[0]:
-            #pixels[0] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[0] = randomColor()
             
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F1)
+            sendKey(keyMod, key0)
 
             # Update held state to prevent retriggering
             held[0] = 1
     elif pressed[1]:
         if not held[1]:
-            #pixels[1] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[1] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F2)
+            sendKey(keyMod, key1)
 
             # Update held state to prevent retriggering
             held[1] = 1
     elif pressed[2]:
         if not held[2]:
-            #pixels[2] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[2] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F3)
+            sendKey(keyMod, key2)
 
             # Update held state to prevent retriggering
             held[2] = 1
     elif pressed[3]:
         if not held[3]:
-            #pixels[3] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[3] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F4)
+            sendKey(keyMod, key3)
 
             # Update held state to prevent retriggering
             held[3] = 1
     elif pressed[4]:
         if not held[4]:
-            #pixels[4] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[4] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F5)
+            sendKey(keyMod, key4)
 
             # Update held state to prevent retriggering
             held[4] = 1
     elif pressed[5]:
         if not held[5]:
-            #pixels[5] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[5] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F6)
+            sendKey(keyMod, key5)
 
             # Update held state to prevent retriggering
             held[5] = 1
     elif pressed[6]:
         if not held[6]:
-            #pixels[6] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[6] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F7)
+            sendKey(keyMod, key6)
 
             # Update held state to prevent retriggering
             held[6] = 1
     elif pressed[7]:
         if not held[7]:
-            #pixels[7] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[7] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F8)
+            sendKey(keyMod, key7)
 
             # Update held state to prevent retriggering
             held[7] = 1
     elif pressed[8]:
         if not held[8]:
-            #pixels[8] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[8] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F9)
+            sendKey(keyMod, key8)
 
             # Update held state to prevent retriggering
             held[8] = 1
     elif pressed[9]:
         if not held[9]:
-            #pixels[9] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[9] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F10)
+            sendKey(keyMod, key9)
 
             # Update held state to prevent retriggering
             held[9] = 1
     elif pressed[10]:
         if not held[10]:
-            #pixels[10] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[10] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F11)
+            sendKey(keyMod, key10)
 
             # Update held state to prevent retriggering
             held[10] = 1
     elif pressed[11]:
         if not held[11]:
-            #pixels[11] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[11] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F12)
+            sendKey(keyMod, key11)
 
             # Update held state to prevent retriggering
             held[11] = 1
@@ -215,27 +213,25 @@ while True:
                 pixels[12] = (0, 255, 0)
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F13)
+            sendKey(keyMod, key12)
 
             # Update held state to prevent retriggering
             held[12] = 1
     elif pressed[13]:
         if not held[13]:
-            #pixels[13] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[13] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F14)
+            sendKey(keyMod, key13)
 
             # Update held state to prevent retriggering
             held[13] = 1
     elif pressed[14]:
         if not held[14]:
-            #pixels[14] = colourwheel(0 * 16)  # Map pixel index to 0-255 range
             pixels[14] = randomColor()
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F15)
+            sendKey(keyMod, key14)
 
             # Update held state to prevent retriggering
             held[14] = 1
@@ -247,7 +243,7 @@ while True:
                 pixels[15] = (0, 255, 0)
 
             # Trigger Key
-            kbd.send(Keycode.LEFT_CONTROL, Keycode.F16)
+            sendKey(keyMod, key15)
 
             # Update held state to prevent retriggering
             held[15] = 1
